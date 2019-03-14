@@ -1,7 +1,7 @@
 function callApi(input){
     const promise = new Promise((resolve, reject)=>{
         var req = new XMLHttpRequest();
-        req.open('POST', 'http://localhost/numericMethods/api.php');
+        req.open('POST', 'http://localhost/numericMethodsproject/api.php');
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         req.onload = function() {
                 if (req.status == 200) {
