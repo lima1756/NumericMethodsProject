@@ -30,8 +30,8 @@ class ResistorInput extends React.Component {
 
   render() {
     return (
-        <div>
-            <select value={this.state.nodeFrom} onChange={event=>this.setState({nodeFrom:event.targe.value})}>
+        <div className="resistorStyle">
+            <select className="select" value={this.state.nodeFrom} onChange={event=>this.setState({nodeFrom:event.targe.value})}>
                 <option value={-1}>node from</option>
                 {
                     this.props.nodesList.map(value=>{
@@ -39,8 +39,10 @@ class ResistorInput extends React.Component {
                     })
                 }
             </select>
-            <input type="number" name="totalNodes" id="inputNodes" value={this.state.resistorValue}  onChange={event=>this.setState({resistorValue:event.target.value})}/>
-            <select value={this.state.nodeTo} onChange={event=>this.setState({nodeTo:event.targe.value})}>
+
+            <input className="InputS" type="number" name="totalNodes" id="inputNodes" value={this.state.resistorValue}  onChange={event=>this.setState({resistorValue:event.target.value})}/>
+
+            <select className="select" value={this.state.nodeTo} onChange={event=>this.setState({nodeTo:event.targe.value})}>
                 <option value={-1}>node to</option>
                 {
                     this.props.nodesList.map(value=>{
@@ -48,6 +50,7 @@ class ResistorInput extends React.Component {
                     })
                 }
             </select>
+
         </div>
         
     );

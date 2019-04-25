@@ -1,0 +1,62 @@
+h1.titulo{
+    color: blueviolet;
+    font-size: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+.label{
+    margin-left: 100px;
+}
+
+.Input{
+    width: 50px;
+    height: 20px;
+    margin: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.formStyle{
+    width: 100%;
+    padding: 25px 0px;
+    background: aqua;
+}
+
+.inputStyle{
+    background: red;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.resistorStyle{
+    margin-left: 25%;
+    margin-right: 25%;
+    background: black;
+}
+
+.InputS{
+    width: 50px;
+    height: 20px;
+    margin: 10px;
+    margin-left: 45px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: rebeccapurple;
+}
+
+.select{
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    margin-left: 50px;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
