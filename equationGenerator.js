@@ -3,29 +3,10 @@
 // TODO: Check through the nodes (and its resistors) that everything is connected with everything (there are no isles in the graph)
 // TODO: the resistor values must be positive
 
-class Node{
-    
-    constructor(id){
-        this.id = id;
-        this.resistors = []
-        this.nextNodes = []
-    }
-
-    setResistor(resistor/*, nextNode*/){
-        this.resistors.push(resistor);
-        //this.nextNodes.push(nextNode);
-    }
-}
 
 
-class Resistor{
 
-    constructor(nodeFrom, nodeTo, value){
-        this.nodeFrom = nodeFrom;
-        this.nodeTo = nodeTo;
-        this.value = value;
-    }
-}
+
 
 // Retrieve the input voltage from the user as well as the total nodes
 const inputVoltage = 20;

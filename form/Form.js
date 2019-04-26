@@ -41,11 +41,11 @@ class Form extends React.Component {
   render() {
     return (
         <div className="inputStyle">
-            <label for="totalNodes" className="label">Total Nodes: </label>
+            <label htmlFor="totalNodes" className="label">Total Nodes: </label>
             <input className="Input" type="number" name="totalNodes" id="inputNodes" value={this.state.nodes}  onChange={this.handleNodes}/>
-            <label for="voltage" className="label">Voltage: </label>
+            <label htmlFor="voltage" className="label">Voltage: </label>
             <input className="Input" type="number" name="voltage" id="inputVoltage" value={this.state.voltage}  onChange={event=>this.setState({voltage:event.target.value})}/>
-            <label for="totalResistors" className="label">Total Resistors: </label>
+            <label htmlFor="totalResistors" className="label">Total Resistors: </label>
             <input className="Input" type="number" name="totalResistors" id="inputResistors" value={this.state.resistors} onChange={this.handleResistors}/>
             <ResistorInput nodesList={this.state.nodesList}/>
              
