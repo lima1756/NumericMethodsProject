@@ -3,6 +3,7 @@ import ResistorInput from './ResistorInput';
 import Node from '../Node'
 import Resistor from '../Resistor'
 import LoopInput from './LoopInput'
+import gauss from '../gauss';
 
 class Form extends React.Component {
     
@@ -248,6 +249,9 @@ class Form extends React.Component {
 
     // TODO: call a function that solves this
     console.log(equations);
+
+    // TODO: JUANPY o HARNEX aqui estan las respuestas, mostrarselas al usuario, la respuesta 1 es de la resistencia 1 (el primer input), y asi sucesivamente
+    console.log(gauss(equations));
     
   }
 

@@ -7,7 +7,7 @@
 
 
 
-const inputVoltage = 20;
+const this.state.voltage = 20;
 const totalNodes = 10;
 
 let nodes = []
@@ -128,13 +128,13 @@ for(let i = 0; i<loops.length; i++){
 
         // Checking if the current node and the next is our power source
         if(loops[i][j].id===1 && loops[i][(j+1)%loops[i].length].id===2){
-            voltage = `= -${inputVoltage}`
-            equations[i+totalNodes][fakeResistors.length+1] = -inputVoltage;
+            voltage = `= -${this.state.voltage}`
+            equations[i+totalNodes][fakeResistors.length+1] = -this.state.voltage;
             continue;
         }
         else if(loops[i][j].id===2 && loops[i][(j+1)%loops[i].length].id===1){
-            voltage = `= ${inputVoltage}`
-            equations[i+totalNodes][fakeResistors.length+1] = inputVoltage;
+            voltage = `= ${this.state.voltage}`
+            equations[i+totalNodes][fakeResistors.length+1] = this.state.voltage;
             continue;
         }
 
