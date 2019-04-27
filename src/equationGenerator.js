@@ -1,14 +1,12 @@
 
-// TODO: The user must not be allowed to connect nodes 0 and 1 (is the power source)
-// TODO: Check through the nodes (and its resistors) that everything is connected with everything (there are no isles in the graph)
-// TODO: the resistor values must be positive
 
 
 
 
 
 
-// Retrieve the input voltage from the user as well as the total nodes
+
+
 const inputVoltage = 20;
 const totalNodes = 10;
 
@@ -18,80 +16,79 @@ for(let i = 0; i < totalNodes; i++){
     nodes.push(new Node(i+1));
 }
 
-let resistors = []
+let fakeResistors = []
 
 // TODO: With the input nodes and the connections (and resistors value), create them
-// This are fake values
 
 let res; 
 
 res = new Resistor(nodes[0], nodes[2], 100);
 nodes[0].setResistor(res)
 nodes[2].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[4], nodes[0], 1000);
 nodes[0].setResistor(res)
 nodes[4].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[1], nodes[3], 5);
 nodes[1].setResistor(res)
 nodes[3].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[1], nodes[9], 25);
 nodes[1].setResistor(res)
 nodes[9].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[2], nodes[5], 10)
 nodes[2].setResistor(res)
 nodes[5].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[2], nodes[3], 10)
 nodes[2].setResistor(res)
 nodes[3].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[3], nodes[7], 60)
 nodes[3].setResistor(res)
 nodes[7].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[5], nodes[4], 1)
 nodes[5].setResistor(res)
 nodes[4].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[5], nodes[6], 500)
 nodes[5].setResistor(res)
 nodes[6].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[7], nodes[6], 200)
 nodes[7].setResistor(res)
 nodes[6].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[7], nodes[8], 45)
 nodes[7].setResistor(res)
 nodes[8].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 res = new Resistor(nodes[8], nodes[9], 30)
 nodes[8].setResistor(res)
 nodes[9].setResistor(res)
-resistors.push(res);
+fakeResistors.push(res);
 
 
 // TODO: check the total equations required and the total nodes and request the user for the loops to obtain the rest of the equations
 
 // Here we are creating the matrix, map is a function of the javascript's array
-let equations = resistors.map(val=>{
+let equations = fakeResistors.map(val=>{
     let eq = [];
-    for(let i = 0; i<resistors.length+1; i++){
+    for(let i = 0; i<fakeResistors.length+1; i++){
         eq.push(0);
     }
     return eq;
@@ -103,13 +100,13 @@ for(let i = 0; i < totalNodes; i++){
     for(let j = 0; j < nodes[i].resistors.length; j++){
         // if the current goes outside the node its negative
         if(nodes[i].resistors[j].nodeFrom===nodes[i]){
-            equations[i][resistors.indexOf(nodes[i].resistors[j])] = -1;
-            currentInNode+='-I'+resistors.indexOf(nodes[i].resistors[j]);
+            equations[i][fakeResistors.indexOf(nodes[i].resistors[j])] = -1;
+            currentInNode+='-I'+fakeResistors.indexOf(nodes[i].resistors[j]);
         }
         // if the current goes inside the node its positive
         else{
-            equations[i][resistors.indexOf(nodes[i].resistors[j])] = 1;
-            currentInNode+='+I'+resistors.indexOf(nodes[i].resistors[j]);
+            equations[i][fakeResistors.indexOf(nodes[i].resistors[j])] = 1;
+            currentInNode+='+I'+fakeResistors.indexOf(nodes[i].resistors[j]);
         }
     }
 }
@@ -132,12 +129,12 @@ for(let i = 0; i<loops.length; i++){
         // Checking if the current node and the next is our power source
         if(loops[i][j].id===1 && loops[i][(j+1)%loops[i].length].id===2){
             voltage = `= -${inputVoltage}`
-            equations[i+totalNodes][resistors.length+1] = -inputVoltage;
+            equations[i+totalNodes][fakeResistors.length+1] = -inputVoltage;
             continue;
         }
         else if(loops[i][j].id===2 && loops[i][(j+1)%loops[i].length].id===1){
             voltage = `= ${inputVoltage}`
-            equations[i+totalNodes][resistors.length+1] = inputVoltage;
+            equations[i+totalNodes][fakeResistors.length+1] = inputVoltage;
             continue;
         }
 
@@ -154,12 +151,12 @@ for(let i = 0; i<loops.length; i++){
         if(resistor){
             // Creating the equation and adding the part to our matrix
             if(resistor.nodeFrom== loops[i][j]){
-                equations[i+totalNodes][resistors.indexOf(resistor)] = resistor.value;
-                equation+='+ I'+resistors.indexOf(resistor)+'*'+resistor.value;
+                equations[i+totalNodes][fakeResistors.indexOf(resistor)] = resistor.value;
+                equation+='+ I'+fakeResistors.indexOf(resistor)+'*'+resistor.value;
             }
             else{
-                equations[i+totalNodes][resistors.indexOf(resistor)] = resistor.value * -1;
-                equation+='+ I'+resistors.indexOf(resistor)+'*'+(resistor.value*-1);
+                equations[i+totalNodes][fakeResistors.indexOf(resistor)] = resistor.value * -1;
+                equation+='+ I'+fakeResistors.indexOf(resistor)+'*'+(resistor.value*-1);
             }
         }
         else{
