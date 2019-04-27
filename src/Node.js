@@ -10,6 +10,8 @@ class Node{
         this.resistors.push(resistor);
         //this.nextNodes.push(nextNode);
     }
+
+    cleanResistors(){ this.resistors = [] }
 }
 
 export default Node;

@@ -11,10 +11,6 @@ class ResistorInput extends React.Component {
         this.updateValue = this.updateValue.bind(this);
     }
 
-    getResistor(){
-        return this.state.resistor;
-    }
-
     updateFrom(event){
         // TODO: JUANPY o HARNEX The user must not be allowed to connect nodes 0 and 1 (is the power source, check first the to value) and the node must not be the same as to
         let res = Object.assign({}, this.props.resistor);

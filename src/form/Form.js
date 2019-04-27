@@ -2,6 +2,7 @@ import React from 'react';
 import ResistorInput from './ResistorInput';
 import Node from '../Node'
 import Resistor from '../Resistor'
+import LoopInput from './LoopInput'
 
 class Form extends React.Component {
     
@@ -15,14 +16,19 @@ class Form extends React.Component {
         totalResistors: 3,
         resistors: [],
         requiredLoops: 0,
+        loops: [],
         equations: []
     };
 
     this.handleNodes = this.handleNodes.bind(this);
     this.handleResistors = this.handleResistors.bind(this);
     this.resistorsInputGenerator = this.resistorsInputGenerator.bind(this);
-    this.submitNodesResistors = this.submitNodesResistors.bind(this);
+    this.submitNodesResistors = this.nodeEquations.bind(this);
     this.resistorUpdate = this.resistorUpdate.bind(this)
+    this.loopsUpdate = this.loopsUpdate.bind(this);
+    this.loopsInputGenerator = this.loopsInputGenerator.bind(this);
+    this.nodeEquations = this.nodeEquations.bind(this);
+    this.loopEquations = this.loopEquations.bind(this);
 
     let nodesList = [];
     for(let i = 0; i < 4; i++){
@@ -89,15 +95,34 @@ class Form extends React.Component {
     return resistorsInput;
   }
 
+  loopsInputGenerator(){
+    let loopsInput = [];
+    for(let i = 0; i < this.state.requiredLoops; i++){
+      loopsInput.push(<LoopInput key={i} id={i} loop={this.state.loops[i]} allLoops={this.state.loops} onChange={this.loopsUpdate}/>);
+    }
+    return loopsInput;
+  }
+
   resistorUpdate(newResistors){    
     this.setState({
       resistors: newResistors
     })
   }
 
-  submitNodesResistors(){
+  loopsUpdate(newLoops){
+    this.setState({
+      loops: newLoops
+    })
+  }
+
+  nodeEquations(){
     let fakeResistors = [...this.state.resistors]
     let fakeNodes = [...this.state.nodes]
+
+    for(let i = 0; i < fakeNodes.length; i++){
+      fakeNodes[i].cleanResistors();
+    }
+
     for(let i = 0; i<fakeResistors.length; i++){
       fakeNodes[fakeResistors[i].nodeFrom.id-1].setResistor(fakeResistors[i])
       fakeNodes[fakeResistors[i].nodeTo.id-1].setResistor(fakeResistors[i])
@@ -140,17 +165,90 @@ class Form extends React.Component {
         }
     }
 
+    let loops = []
+    for(let i = 0; i<equations.length-eqCounter; i++){
+      loops.push('');
+    }
+
     this.setState({
       nodes: fakeNodes,
       resistors: fakeResistors,
       requiredLoops:equations.length-eqCounter,
+      equations: equations,
+      loops: loops
+    })
+
+
+    
+
+
+  }
+
+  loopEquations(){
+
+    let equations = [...this.state.equations];
+    const inputLoops = this.state.loops.map(loop=>{
+      return loop.split(',');
+    })
+
+    // Again the map function
+    let loops = inputLoops.map(loop=>{
+      return loop.map(nodeId=>{
+        return this.state.nodes.find(node=>node.id===parseInt(nodeId))
+      })
+    })
+    
+    // Creating the loops equations
+    for(let i = 0; i<loops.length; i++){
+      let equation = ''
+      let voltage = ''
+      for(let j = 0; j < loops[i].length; j++){
+        // Checking if the current node and the next is our power source
+        if(loops[i][j].id===1 && loops[i][(j+1)%loops[i].length].id===2){
+          voltage = `= -${this.state.voltage}`
+          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = -parseInt(this.state.voltage);
+          continue;
+        }
+        else if(loops[i][j].id===2 && loops[i][(j+1)%loops[i].length].id===1){
+          voltage = `= ${this.state.voltage}`
+          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = parseInt(this.state.voltage);
+          continue;
+        }
+
+        // Obtaining the resistor that connects current node and next node
+        const resistor = loops[i][j].resistors.find(
+            resistor=>(
+                resistor.nodeFrom===loops[i][j] && resistor.nodeTo===loops[i][(j+1)%loops[i].length] ||
+                resistor.nodeTo===loops[i][j] && resistor.nodeFrom===loops[i][(j+1)%loops[i].length]
+            )
+        )
+
+        // If the resistor exists, in javascript you can check the existence of object without checking if it is null
+        // it would be the same as resistor !== null
+        if(resistor){
+            // Creating the equation and adding the part to our matrix
+            if(resistor.nodeFrom== loops[i][j]){
+                equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.resistors.indexOf(resistor)] = parseInt(resistor.value);
+                equation+='+ I'+this.state.resistors.indexOf(resistor)+'*'+resistor.value;
+            }
+            else{
+                equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.resistors.indexOf(resistor)] = parseInt(resistor.value) * -1;
+                equation+='+ I'+this.state.resistors.indexOf(resistor)+'*'+(resistor.value*-1);
+            }
+        }
+        else{
+            // TODO: JUANPY o HARNEX Tell the user that the current node is not connected to the next in the list
+            throw Error("No flow")
+        }
+      }
+    }
+    this.setState({
       equations: equations
     })
 
+    // TODO: call a function that solves this
     console.log(equations);
-
-    console.log("Required loops: "+(equations.length-eqCounter))
-
+    
   }
 
   render() {
@@ -163,8 +261,14 @@ class Form extends React.Component {
             <label htmlFor="totalResistors" className="label">Total Resistors: </label>
             <input className="Input" type="number" name="totalResistors" id="inputResistors" value={this.state.totalResistors} onChange={this.handleResistors}/>
             { this.resistorsInputGenerator() }
-            { this.state.requiredLoops > 0 && <div>{this.state.equations}</div>}
-            <button onClick={this.submitNodesResistors}>Submit</button>
+            { this.state.requiredLoops > 0 && 
+              <div>
+                {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
+                { this.loopsInputGenerator() }
+                <button onClick={this.loopEquations}>Calculate!</button>
+              </div>
+            }
+            <button onClick={this.nodeEquations}>Submit</button>
         </div>
 
         
