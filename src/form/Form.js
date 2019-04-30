@@ -7,7 +7,7 @@ import gauss from '../gauss';
 
 class Form extends React.Component {
     
-  constructor(props) {
+  constructor(props) { 
     super(props);
     this.state = 
     { 
@@ -133,8 +133,16 @@ class Form extends React.Component {
 
     // TODO: JUANPY o HARNEX Check through the nodes (and its resistors) that everything is connected with everything (there are no isles in the graph)
 
+    for (let i = 0; i < fakeNodes.length; i++){
+      for (let j = 0; j < fakeNodes[i].resistors.length; j++){
+        if (fakeNodes[i].resistors[j].nodeFrom.id == -1 || fakeNodes[i].resistors[j].nodeTo.id == -1){
+          throw Error("Resistors incorrectly connected.");
+        }
+      }
+    }
 
 
+    
     
 
     let equations = fakeResistors.map(val=>{
@@ -228,7 +236,7 @@ class Form extends React.Component {
         // it would be the same as resistor !== null
         if(resistor){
             // Creating the equation and adding the part to our matrix
-            if(resistor.nodeFrom== loops[i][j]){
+            if(resistor.nodeFrom == loops[i][j]){
                 equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.resistors.indexOf(resistor)] = parseInt(resistor.value);
                 equation+='+ I'+this.state.resistors.indexOf(resistor)+'*'+resistor.value;
             }
@@ -239,7 +247,8 @@ class Form extends React.Component {
         }
         else{
             // TODO: JUANPY o HARNEX Tell the user that the current node is not connected to the next in the list
-            throw Error("No flow")
+
+            throw alert("The node " + inputLoops[i][j] + " has no flow towards the node " + inputLoops[i][j+1] + ".");
         }
       }
     }
@@ -249,10 +258,14 @@ class Form extends React.Component {
 
     
     console.log(equations);
-
-    // TODO: JUANPY o HARNEX aqui estan las respuestas, mostrarselas al usuario, la respuesta 1 es de la resistencia 1 (el primer input), y asi sucesivamente
     console.log(gauss(equations));
-    
+    // TODO: JUANPY o HARNEX aqui estan las respuestas, mostrarselas al usuario, la respuesta 1 es de la resistencia 1 (el primer input), y asi sucesivamente
+    let answers = (gauss(equations));
+    let answer = '';
+    for (let i = answers.length-1; i >= 0; i--){
+      answer = "Resistencia " + (i+1) +  ": " + (Math.floor(answers[i] * 100) / 100) + "\n" + answer;
+    }
+    alert(answer);
   }
 
   render() {
@@ -266,10 +279,13 @@ class Form extends React.Component {
             <input className="Input" type="number" name="totalResistors" id="inputResistors" value={this.state.totalResistors} onChange={this.handleResistors}/>
             { this.resistorsInputGenerator() }
             { this.state.requiredLoops > 0 && 
-              <div>
-                {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
-                { this.loopsInputGenerator() }
-                <button onClick={this.loopEquations}>Calculate!</button>
+              <div className="modal active">
+                <div className="modal-container">
+
+                  {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
+                  { this.loopsInputGenerator() }
+                  <button onClick={this.loopEquations}>Calculate!</button>
+                </div>
               </div>
             }
             <button onClick={this.nodeEquations}>Submit</button>
