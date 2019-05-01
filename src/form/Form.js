@@ -141,8 +141,31 @@ class Form extends React.Component {
       }
     }
 
-
-    
+    let visitados = [];
+    function visitar(Nodo){
+      console.log(Nodo);
+      if (visitados.indexOf(Nodo) == -1){
+        visitados.push(Nodo);
+        for (let i = 0; i < Nodo.resistors.length; i++){
+          if (Nodo.resistors[i].nodeFrom.id == Nodo.id){
+            visitar(Nodo.resistors[i].nodeTo);
+          } else if (Nodo.resistors[i].nodeTo.id == Nodo.id){
+            visitar(Nodo.resistors[i].nodeFrom);
+          }
+        }
+      }
+    }
+    visitar(fakeNodes[0]);
+    console.log(fakeNodes);
+    console.log(visitados);
+    if (visitados.length != fakeNodes.length){
+      throw alert("Nodes are incorrectly connected.");
+    }
+    for (let i = 0; i < visitados.length; i++){
+      if (visitados.indexOf(fakeNodes[i]) == -1){
+        throw alert("Nodes are incorrectly connected.");
+      }
+    }
     
 
     let equations = fakeResistors.map(val=>{
@@ -263,7 +286,7 @@ class Form extends React.Component {
     let answers = (gauss(equations));
     let answer = '';
     for (let i = answers.length-1; i >= 0; i--){
-      answer = "Resistencia " + (i+1) +  ": " + (Math.floor(answers[i] * 100) / 100) + "\n" + answer;
+      answer = "Corriente " + (i+1) +  ": " + (Math.floor(answers[i] * 100) / 100) + "Ampers \n" + answer;
     }
     alert(answer);
   }
@@ -279,12 +302,16 @@ class Form extends React.Component {
             <input className="Input" type="number" name="totalResistors" id="inputResistors" value={this.state.totalResistors} onChange={this.handleResistors}/>
             { this.resistorsInputGenerator() }
             { this.state.requiredLoops > 0 && 
-              <div className="modal active">
-                <div className="modal-container">
+              <div className>
+                <div className>
 
                   {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
                   { this.loopsInputGenerator() }
-                  <button onClick={this.loopEquations}>Calculate!</button>
+                  <div>
+                    <button onClick={this.loopEquations}>Calculate!</button>
+                    <a href="#close" className="modal-overlay" aria-label="Close"></a>
+                  </div>
+                  
                 </div>
               </div>
             }
