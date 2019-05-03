@@ -1,62 +1,135 @@
-h1.titulo{
-    color: blueviolet;
+body {
+    background-image: url("circuitBKF.fw.png");
+    height: 245px;
+    background-color: rgba(0, 132, 255, 0.24);
+
+}
+
+.reload {
+    background-color: transparent;
+    border: 0cm;
+    margin-left: 20px;
+
+}
+
+.titulo {
+    filter: opacity(100%);
+    color: white;
+    text-shadow: 3px 3px black;
     font-size: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-weight: bold;
     text-align: center;
-    
+    margin-top: 140px;
+    margin-bottom: 80px;
+
 }
 
-.label{
+.instruccionesBox {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.842);
+}
+
+.instrucciones {
+    text-align: justify;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.instrucciones h2 {
+    text-align: center;
+}
+
+.instrucciones li {
+    font-size: 18px;
+}
+
+.inputStyle {
+    margin-top: 70px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+.label {
     margin-left: 100px;
+    color: black;
+    font-size: 30px;
+    background: transparent;
 }
 
-.Input{
-    width: 50px;
-    height: 20px;
+.Input {
+    width: 75px;
+    height: 35px;
     margin: 10px;
-    padding: 3px 8px;
     border-radius: 4px;
     margin-top: 20px;
     margin-bottom: 20px;
+    font-size: 25px;
 }
 
-.formStyle{
-    width: 100%;
-    padding: 25px 0px;
-    background: aqua;
-}
-
-.inputStyle{
-    background: red;
-    margin-left: 25%;
-    margin-right: 25%;
-}
-
-.resistorStyle{
-    margin-left: 25%;
-    margin-right: 25%;
-    background: black;
-}
-
-.InputS{
-    width: 50px;
-    height: 20px;
-    margin: 10px;
-    margin-left: 45px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: rebeccapurple;
-}
-
-.select{
-    width: 100px;
-    height: 30px;
-    margin: 10px;
+.InputDatos {
+    padding: 10px 20px;
+    margin-top: 15px;
+    margin-bottom: 40px;
     margin-left: 50px;
-    padding: 3px 8px;
+    margin-right: 50px;
+}
+
+.resistorStyle {
+    margin-top: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 0px 50px;
+}
+
+.modalInputs {
+    margin-right: 125px;
+}
+
+#loop {
+    margin-right: 500px;
+
+}
+
+.InputR {
+    width: 65px;
+    height: 35px;
+    margin: 10px;
+    font-size: 20px;
+    margin-left: 70px;
+    margin-right: 20px;
     border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    ;
+}
+
+.selectR {
+    width: 140px;
+    height: 40px;
+    font-size: 20px;
+    margin: 8px;
+    margin-left: 45px;
+    padding: 0px 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.botoncin {
+    background-color: white;
+    color: black;
+    border: 3px solid #008CBA;
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 50px 48%;
+    transition-duration: .6s;
+    cursor: pointer;
+}
+
+.botoncin:hover {
+    border-radius: 12px;
+    background-color: #008CBA;
+    color: white;
 }

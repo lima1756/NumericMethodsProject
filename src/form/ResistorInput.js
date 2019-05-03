@@ -45,7 +45,7 @@ class ResistorInput extends React.Component {
     render() {
         return (
             <div className="resistorStyle">
-                <select className="select" value={this.props.resistor.nodeFrom.id} onChange={this.updateFrom}>
+                <select className="selectR" value={this.props.resistor.nodeFrom.id} onChange={this.updateFrom}>
                     <option value={-1}>node from</option>
                     {
                         this.props.nodesList.map(value=>{
@@ -54,10 +54,10 @@ class ResistorInput extends React.Component {
                     }
                 </select>
 
-                <input className="InputS" type="number" name="totalNodes" id="inputNodes" value={this.props.resistor.value}  onChange={this.updateValue}/>
+                <input className="InputR" type="number" name="totalNodes" id="inputNodes" value={this.props.resistor.value}  onChange={this.updateValue}/>
 
-                <select className="select" value={this.props.resistor.nodeTo.id} onChange={this.updateTo}>
-                    <option value={-1}>node to</option>
+                <select className="selectR" value={this.props.resistor.nodeTo.id} onChange={this.updateTo}>
+                    <option  value={-1}>node to</option>
                     {
                         this.props.nodesList.map(value=>{
                             return (<option key={value.id} value={value.id}>{value.id}</option>)

@@ -294,33 +294,45 @@ class Form extends React.Component {
   render() {
     return (
         <div className="inputStyle">
-            <label htmlFor="totalNodes" className="label">Total Nodes: </label>
+          <div className="InputDatos">
+          <label htmlFor="totalNodes" className="label">Nodos Totales: </label>
             <input className="Input" type="number" name="totalNodes" id="inputNodes" value={this.state.totalNodes}  onChange={this.handleNodes}/>
-            <label htmlFor="voltage" className="label">Voltage: </label>
+            <label htmlFor="voltage" className="label">Voltaje: </label>
             <input className="Input" type="number" name="voltage" id="inputVoltage" value={this.state.voltage}  onChange={event=>this.setState({voltage:event.target.value})}/>
-            <label htmlFor="totalResistors" className="label">Total Resistors: </label>
+            <label htmlFor="totalResistors" className="label">Resistores Totales: </label>
             <input className="Input" type="number" name="totalResistors" id="inputResistors" value={this.state.totalResistors} onChange={this.handleResistors}/>
+          </div>
+
             { this.resistorsInputGenerator() }
             { this.state.requiredLoops > 0 && 
-              <div className>
-                <div className>
+          
 
-                  {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
-                  { this.loopsInputGenerator() }
-                  <div>
-                    <button onClick={this.loopEquations}>Calculate!</button>
-                    <a href="#close" className="modal-overlay" aria-label="Close"></a>
+              <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className = "modal-dialog modal-dialog-centered" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
+                      <p>Ingrese los nodos en orden de la malla, separado por comas</p>
+                      <div className="modalInputs">
+                        { this.loopsInputGenerator() }  
+                      </div>                      
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button className="btn btn-primary" onClick={this.loopEquations}>Calcular!</button>
+                    </div>
+                  </div>                
                   </div>
-                  
-                </div>
               </div>
             }
-            <button onClick={this.nodeEquations}>Submit</button>
-        </div>
-
-        
-        
-        
+            <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations}>Submit</button>
+        </div>     
         
     );
   }
