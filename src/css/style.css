@@ -20,12 +20,13 @@ body {
     text-align: center;
     margin-top: 140px;
     margin-bottom: 80px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
 
 }
 
 .instruccionesBox {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.842);
+    background-color: rgba(255, 255, 255, 0.521);
 }
 
 .instrucciones {
@@ -36,16 +37,26 @@ body {
 
 .instrucciones h2 {
     text-align: center;
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: bold;
 }
 
 .instrucciones li {
     font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;  
+}
+
+.instrucciones img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .inputStyle {
     margin-top: 70px;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 260px;
+    margin-right: 267px;
 
 }
 
@@ -70,7 +81,7 @@ body {
     padding: 10px 20px;
     margin-top: 15px;
     margin-bottom: 40px;
-    margin-left: 50px;
+    margin-left: 75px;
     margin-right: 50px;
 }
 

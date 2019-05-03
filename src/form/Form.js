@@ -311,7 +311,7 @@ class Form extends React.Component {
                 <div className = "modal-dialog modal-dialog-centered" role="document">
                   <div className="modal-content">
                     <div className="modal-header">
-                      <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                      <h5 className="modal-title" id="exampleModalLongTitle">Malla</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -331,7 +331,7 @@ class Form extends React.Component {
                   </div>
               </div>
             }
-            <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations}>Submit</button>
+            <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations}>Enviar</button>
         </div>     
         
     );
