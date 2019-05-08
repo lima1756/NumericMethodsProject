@@ -1,3 +1,9 @@
+# Team
+
+* Luis Ivan Morett Arevalo - A01634417
+* Juan Daniel Rubio
+* Juan Pablo Velazco
+
 # How to run
 
 ## Prerequisites
