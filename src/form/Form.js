@@ -32,6 +32,7 @@ class Form extends React.Component {
     this.loopsInputGenerator = this.loopsInputGenerator.bind(this);
     this.nodeEquations = this.nodeEquations.bind(this);
     this.loopEquations = this.loopEquations.bind(this);
+    this.precise = this.precise.bind(this);
 
     let nodesList = [];
     for(let i = 0; i < 4; i++){
@@ -244,7 +245,7 @@ class Form extends React.Component {
             }
         }
         else{
-            throw alert("The node " + inputLoops[i][j] + " has no flow towards the node " + inputLoops[i][j+1] + ".");
+            throw alert("El nodo " + inputLoops[i][j] + " no tiene flujo en direccion al nodo: " + inputLoops[i][j+1] + ".");
         }
       }
     }
@@ -258,9 +259,13 @@ class Form extends React.Component {
     let answers = (gauss(equations));
     let answer = '';
     for (let i = answers.length-1; i >= 0; i--){
-      answer = "Corriente " + (i+1) +  ": " + (Math.floor(answers[i] * 100) / 100) + "Ampers \n" + answer;
+      answer = "Corriente " + (i+1) +  ": " + this.precise(answers[i]) + "Ampers \n" + answer;
     }
     alert(answer);
+  }
+
+  precise(x) {
+    return Number.parseFloat(x).toPrecision(4);
   }
 
   render() {
