@@ -18,7 +18,7 @@ class ResistorInput extends React.Component {
 
     render() {
         return (
-            <div className="resistorStyle">
+            <div>
                 <input type="text" name="loop" id="loop" value={this.props.loop}  onChange={this.updateLoop}/>
             </div>
             

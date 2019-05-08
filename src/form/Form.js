@@ -4,6 +4,7 @@ import Node from '../Node'
 import Resistor from '../Resistor'
 import LoopInput from './LoopInput'
 import gauss from '../gauss';
+import swal from 'sweetalert';
 
 class Form extends React.Component {
     
@@ -130,7 +131,7 @@ class Form extends React.Component {
 
     for(let i = 0; i<fakeResistors.length; i++){
       if(!fakeNodes[fakeResistors[i].nodeFrom.id-1] || !fakeNodes[fakeResistors[i].nodeTo.id-1]){
-          alert("Revise haber ingresado un nodo valido en todas las resistencias")
+          swal("","Revise haber ingresado un nodo valido en todas las resistencias","error")
           return -1;
       }
       fakeNodes[fakeResistors[i].nodeFrom.id-1].setResistor(fakeResistors[i])
@@ -142,7 +143,7 @@ class Form extends React.Component {
     for (let i = 0; i < fakeNodes.length; i++){
       for (let j = 0; j < fakeNodes[i].resistors.length; j++){
         if (fakeNodes[i].resistors[j].nodeFrom.id == -1 || fakeNodes[i].resistors[j].nodeTo.id == -1){
-          alert("Resistencias conectadas incorrectamente");
+          swal("","Resistencias conectadas incorrectamente","error");
           return -1;
         }
       }
@@ -245,7 +246,7 @@ class Form extends React.Component {
             }
         }
         else{
-            throw alert("El nodo " + inputLoops[i][j] + " no tiene flujo en direccion al nodo: " + inputLoops[i][j+1] + ".");
+           swal("","El nodo " + inputLoops[i][j] + " no tiene flujo en direccion al nodo: " + inputLoops[i][j+1] + ".","error");
         }
       }
     }
@@ -259,9 +260,10 @@ class Form extends React.Component {
     let answers = (gauss(equations));
     let answer = '';
     for (let i = answers.length-1; i >= 0; i--){
-      answer = "Corriente " + (i+1) +  ": " + this.precise(answers[i]) + " Ampers \n" + answer;
+      answer = "Corriente " + (i+1) +  ": " + this.precise(answers[i]) + " A \n" + answer;
     }
-    alert(answer);
+
+    swal("Respuestas: ", answer, "info");
   }
 
   precise(x) {
@@ -308,6 +310,7 @@ class Form extends React.Component {
               </div>
             
             <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations} >Enviar</button>
+           
         </div>     
         
     );

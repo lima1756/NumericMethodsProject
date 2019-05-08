@@ -1,5 +1,6 @@
 import React from 'react';
 import Resistor from '../Resistor';
+import swal from 'sweetalert';
 
 class ResistorInput extends React.Component {
 
@@ -15,11 +16,11 @@ class ResistorInput extends React.Component {
         let res = Object.assign({}, this.props.resistor);
         res.nodeFrom = this.props.nodesList[event.target.value-1]
         if(res.nodeFrom === res.nodeTo){
-            alert("Porfavor ingrese nodos distintos a la resistencia")
+            swal("","Porfavor ingrese nodos distintos a la resistencia","error")
             return -1;
         }
         else if(res.nodeFrom.id===1 && res.nodeTo.id ===2 || res.nodeFrom.id===2 && res.nodeTo.id ===1){
-            alert("La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos")
+            swal("","La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos","error")
             return -1;
         }
         let allResistors = [...this.props.allResistors]
@@ -32,11 +33,11 @@ class ResistorInput extends React.Component {
         let res = Object.assign({}, this.props.resistor);
         res.nodeTo = this.props.nodesList[event.target.value-1]
         if(res.nodeFrom === res.nodeTo){
-            alert("Porfavor ingrese nodos distintos a la resistencia")
+            swal("","Porfavor ingrese nodos distintos a la resistencia","error")
             return -1;
         }
         else if(res.nodeFrom.id===1 && res.nodeTo.id ===2 || res.nodeFrom.id===2 && res.nodeTo.id ===1){
-            alert("La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos")
+            swal("","La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos","error")
             return -1;
         }
         let allResistors = [...this.props.allResistors]
@@ -69,7 +70,7 @@ class ResistorInput extends React.Component {
                 </select>
 
                 <input className="InputR" type="number" name="totalNodes" id="inputNodes" value={this.props.resistor.value}  onChange={this.updateValue}/>
-
+                <b style={{fontSize:"25px"}}>Ω</b>
                 <select className="selectR" value={this.props.resistor.nodeTo.id} onChange={this.updateTo}>
                     <option  value={-1}>node to</option>
                     {
