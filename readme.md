@@ -1,8 +1,8 @@
 # Team
 
 * Luis Ivan Morett Arevalo - A01634417
-* Juan Daniel Rubio
-* Juan Pablo Velazco
+* Juan Daniel Rubio Camacho - A01633924
+* Juan Pablo Velazco Velazquez - A00368753
 
 # How to run
 
