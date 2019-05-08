@@ -14,7 +14,6 @@ class ResistorInput extends React.Component {
     updateFrom(event){
         let res = Object.assign({}, this.props.resistor);
         res.nodeFrom = this.props.nodesList[event.target.value-1]
-        console.log(res)
         if(res.nodeFrom === res.nodeTo){
             alert("Porfavor ingrese nodos distintos a la resistencia")
             return -1;

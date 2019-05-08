@@ -147,34 +147,6 @@ class Form extends React.Component {
       }
     }
 
-    let visitados = [];
-    function visitar(Nodo){
-      console.log(Nodo);
-      if (visitados.indexOf(Nodo) == -1){
-        visitados.push(Nodo);
-        for (let i = 0; i < Nodo.resistors.length; i++){
-          if (Nodo.resistors[i].nodeFrom.id == Nodo.id){
-            visitar(Nodo.resistors[i].nodeTo);
-          } else if (Nodo.resistors[i].nodeTo.id == Nodo.id){
-            visitar(Nodo.resistors[i].nodeFrom);
-          }
-        }
-      }
-    }
-    visitar(fakeNodes[0]);
-    console.log(fakeNodes);
-    console.log(visitados);
-    if (visitados.length != fakeNodes.length){
-      alert("Nodos conectados incorrectamente");
-      return -1;
-    }
-    for (let i = 0; i < visitados.length; i++){
-      if (visitados.indexOf(fakeNodes[i]) == -1){
-        alert("Nodos conectados incorrectamente");
-        return -1;
-      }
-    }
-    
 
     let equations = fakeResistors.map(val=>{
         let eq = [];
@@ -218,13 +190,10 @@ class Form extends React.Component {
       loops: loops
     })
 
-
-    
-    this.setState({modalState:false})
   }
 
   loopEquations(){
-
+    console.log("HERE")
     let equations = [...this.state.equations];
     const inputLoops = this.state.loops.map(loop=>{
       return loop.split(',');
@@ -311,7 +280,7 @@ class Form extends React.Component {
             { this.state.requiredLoops > 0 && 
           
 
-              <div className="modal fade" id="modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+              <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div className = "modal-dialog modal-dialog-centered" role="document">
                   <div className="modal-content">
                     <div className="modal-header">
@@ -334,7 +303,7 @@ class Form extends React.Component {
                   </div>
               </div>
             }
-            <button className="botoncin" data-toggle="modal" data-target="#modal" >Enviar</button>
+            <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations} >Enviar</button>
         </div>     
         
     );
