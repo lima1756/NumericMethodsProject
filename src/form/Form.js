@@ -21,6 +21,8 @@ class Form extends React.Component {
         equations: []
     };
 
+    this.myRef = React.createRef();
+
     this.handleNodes = this.handleNodes.bind(this);
     this.handleResistors = this.handleResistors.bind(this);
     this.resistorsInputGenerator = this.resistorsInputGenerator.bind(this);
@@ -117,6 +119,7 @@ class Form extends React.Component {
   }
 
   nodeEquations(){
+    
     let fakeResistors = [...this.state.resistors]
     let fakeNodes = [...this.state.nodes]
 
@@ -125,18 +128,21 @@ class Form extends React.Component {
     }
 
     for(let i = 0; i<fakeResistors.length; i++){
+      if(!fakeNodes[fakeResistors[i].nodeFrom.id-1] || !fakeNodes[fakeResistors[i].nodeTo.id-1]){
+          alert("Revise haber ingresado un nodo valido en todas las resistencias")
+          return -1;
+      }
       fakeNodes[fakeResistors[i].nodeFrom.id-1].setResistor(fakeResistors[i])
       fakeNodes[fakeResistors[i].nodeTo.id-1].setResistor(fakeResistors[i])
       fakeResistors[i].nodeFrom = fakeNodes[fakeResistors[i].nodeFrom.id-1];
       fakeResistors[i].nodeTo = fakeNodes[fakeResistors[i].nodeTo.id-1];
     }
 
-    // TODO: JUANPY o HARNEX Check through the nodes (and its resistors) that everything is connected with everything (there are no isles in the graph)
-
     for (let i = 0; i < fakeNodes.length; i++){
       for (let j = 0; j < fakeNodes[i].resistors.length; j++){
         if (fakeNodes[i].resistors[j].nodeFrom.id == -1 || fakeNodes[i].resistors[j].nodeTo.id == -1){
-          throw Error("Resistors incorrectly connected.");
+          alert("Resistencias conectadas incorrectamente");
+          return -1;
         }
       }
     }
@@ -159,11 +165,13 @@ class Form extends React.Component {
     console.log(fakeNodes);
     console.log(visitados);
     if (visitados.length != fakeNodes.length){
-      throw alert("Nodes are incorrectly connected.");
+      alert("Nodos conectados incorrectamente");
+      return -1;
     }
     for (let i = 0; i < visitados.length; i++){
       if (visitados.indexOf(fakeNodes[i]) == -1){
-        throw alert("Nodes are incorrectly connected.");
+        alert("Nodos conectados incorrectamente");
+        return -1;
       }
     }
     
@@ -212,8 +220,7 @@ class Form extends React.Component {
 
 
     
-
-
+    this.setState({modalState:false})
   }
 
   loopEquations(){
@@ -269,8 +276,6 @@ class Form extends React.Component {
             }
         }
         else{
-            // TODO: JUANPY o HARNEX Tell the user that the current node is not connected to the next in the list
-
             throw alert("The node " + inputLoops[i][j] + " has no flow towards the node " + inputLoops[i][j+1] + ".");
         }
       }
@@ -282,7 +287,6 @@ class Form extends React.Component {
     
     console.log(equations);
     console.log(gauss(equations));
-    // TODO: JUANPY o HARNEX aqui estan las respuestas, mostrarselas al usuario, la respuesta 1 es de la resistencia 1 (el primer input), y asi sucesivamente
     let answers = (gauss(equations));
     let answer = '';
     for (let i = answers.length-1; i >= 0; i--){
@@ -307,31 +311,30 @@ class Form extends React.Component {
             { this.state.requiredLoops > 0 && 
           
 
-              <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div className="modal fade" id="modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div className = "modal-dialog modal-dialog-centered" role="document">
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">Malla</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close" >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div className="modal-body">
-                      {/* TODO: JUANPY o HARNEX este div que sea un modal y que sea bonito, cada campo de texto será una malla, que el div le diga al usuario que ingrese la lista de nodos en orden de la malla, separados por comas */}
                       <p>Ingrese los nodos en orden de la malla, separado por comas</p>
                       <div className="modalInputs">
                         { this.loopsInputGenerator() }  
                       </div>                      
                     </div>
                     <div className="modal-footer">
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="button" className="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
                       <button className="btn btn-primary" onClick={this.loopEquations}>Calcular!</button>
                     </div>
                   </div>                
                   </div>
               </div>
             }
-            <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations}>Enviar</button>
+            <button className="botoncin" data-toggle="modal" data-target="#modal" >Enviar</button>
         </div>     
         
     );

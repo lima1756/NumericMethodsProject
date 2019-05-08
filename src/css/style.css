@@ -57,6 +57,7 @@ body {
     margin-top: 70px;
     margin-left: 260px;
     margin-right: 267px;
+    text-align: center;
 
 }
 
@@ -81,15 +82,10 @@ body {
     padding: 10px 20px;
     margin-top: 15px;
     margin-bottom: 40px;
-    margin-left: 75px;
-    margin-right: 50px;
 }
 
 .resistorStyle {
-    margin-top: 10px;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 0px 50px;
+
 }
 
 .modalInputs {

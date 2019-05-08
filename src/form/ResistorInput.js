@@ -12,9 +12,17 @@ class ResistorInput extends React.Component {
     }
 
     updateFrom(event){
-        // TODO: JUANPY o HARNEX The user must not be allowed to connect nodes 0 and 1 (is the power source, check first the to value) and the node must not be the same as to
         let res = Object.assign({}, this.props.resistor);
         res.nodeFrom = this.props.nodesList[event.target.value-1]
+        console.log(res)
+        if(res.nodeFrom === res.nodeTo){
+            alert("Porfavor ingrese nodos distintos a la resistencia")
+            return -1;
+        }
+        else if(res.nodeFrom.id===1 && res.nodeTo.id ===2 || res.nodeFrom.id===2 && res.nodeTo.id ===1){
+            alert("La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos")
+            return -1;
+        }
         let allResistors = [...this.props.allResistors]
         allResistors.splice(this.props.id, 1, res);
         this.props.onChange(allResistors);
@@ -22,9 +30,16 @@ class ResistorInput extends React.Component {
     }
 
     updateTo(event){
-        // TODO: JUANPY o HARNEX The user must not be allowed to connect nodes 0 and 1 (is the power source, check first the from value) and the node must not be the same as from
         let res = Object.assign({}, this.props.resistor);
         res.nodeTo = this.props.nodesList[event.target.value-1]
+        if(res.nodeFrom === res.nodeTo){
+            alert("Porfavor ingrese nodos distintos a la resistencia")
+            return -1;
+        }
+        else if(res.nodeFrom.id===1 && res.nodeTo.id ===2 || res.nodeFrom.id===2 && res.nodeTo.id ===1){
+            alert("La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos")
+            return -1;
+        }
         let allResistors = [...this.props.allResistors]
         allResistors.splice(this.props.id, 1, res);
         this.props.onChange(allResistors);
