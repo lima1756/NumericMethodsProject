@@ -50,42 +50,44 @@ class Form extends React.Component {
   }
 
   handleNodes(event){
-    if(event.target.value>=4){
-      if(event.target.value<this.state.totalNodes){
+    let val = parseInt(event.target.value);
+    if(val>=4){
+      if(val<this.state.totalNodes){
         this.setState({
           nodes: this.state.nodes.slice(0, -1)
         });
       }
       else{
         let allNodes = [...this.state.nodes];
-        for(let i = parseInt(this.state.totalNodes); i < event.target.value; i++){
+        for(let i = parseInt(this.state.totalNodes); i < val; i++){
             allNodes.push(new Node(i+1));
         }
         this.setState({
           nodes: allNodes
         })
       }
-      this.setState({totalNodes:event.target.value})
+      this.setState({totalNodes:val})
     }
   }
 
   handleResistors(event){
-    if(event.target.value>=3)
+    let val = parseInt(event.target.value);
+    if(val>=3)
     {
-      if(event.target.value<this.state.totalResistors){
+      if(val<this.state.totalResistors){
         this.setState({
           resistors: this.state.resistors.slice(0,-1),
-          totalResistors:event.target.value
+          totalResistors:val
         })
       }
       else{
         let resistors = [...this.state.resistors]
-        for(let i = resistors.length; i<event.target.value; i++){
+        for(let i = resistors.length; i<val; i++){
           resistors.push(new Resistor());
         }
         this.setState({
           resistors: resistors,
-          totalResistors:event.target.value
+          totalResistors: val
         });
       }
     }

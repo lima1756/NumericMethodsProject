@@ -58,6 +58,7 @@ class ResistorInput extends React.Component {
 
 
     render() {
+        console.log(this.props);
         return (
             <div className="resistorStyle">
                 <select className="selectR" value={this.props.resistor.nodeFrom.id} onChange={this.updateFrom}>
