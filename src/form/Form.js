@@ -259,7 +259,7 @@ class Form extends React.Component {
     let answers = (gauss(equations));
     let answer = '';
     for (let i = answers.length-1; i >= 0; i--){
-      answer = "Corriente " + (i+1) +  ": " + this.precise(answers[i]) + "Ampers \n" + answer;
+      answer = "Corriente " + (i+1) +  ": " + this.precise(answers[i]) + " Ampers \n" + answer;
     }
     alert(answer);
   }
