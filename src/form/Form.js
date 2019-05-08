@@ -214,12 +214,12 @@ class Form extends React.Component {
         // Checking if the current node and the next is our power source
         if(loops[i][j].id===1 && loops[i][(j+1)%loops[i].length].id===2){
           voltage = `= -${this.state.voltage}`
-          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = -parseInt(this.state.voltage);
+          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = -parseFloat(this.state.voltage);
           continue;
         }
         else if(loops[i][j].id===2 && loops[i][(j+1)%loops[i].length].id===1){
           voltage = `= ${this.state.voltage}`
-          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = parseInt(this.state.voltage);
+          equations[this.state.equations.length-(this.state.requiredLoops-i)][this.state.totalResistors] = parseFloat(this.state.voltage);
           continue;
         }
 
