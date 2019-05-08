@@ -193,7 +193,6 @@ class Form extends React.Component {
   }
 
   loopEquations(){
-    console.log("HERE")
     let equations = [...this.state.equations];
     const inputLoops = this.state.loops.map(loop=>{
       return loop.split(',');
