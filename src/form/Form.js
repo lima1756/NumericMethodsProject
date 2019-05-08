@@ -281,7 +281,7 @@ class Form extends React.Component {
           </div>
 
             { this.resistorsInputGenerator() }
-            { this.state.requiredLoops > 0 && 
+            
           
 
               <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
@@ -306,7 +306,7 @@ class Form extends React.Component {
                   </div>                
                   </div>
               </div>
-            }
+            
             <button className="botoncin" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.nodeEquations} >Enviar</button>
         </div>     
         
