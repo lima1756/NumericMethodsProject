@@ -23,6 +23,16 @@ class ResistorInput extends React.Component {
             swal("","La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos","error")
             return -1;
         }
+        if(res.nodeTo.id!== -1 && res.nodeFrom.id!== -1){
+            console.log("YEI")
+            for(let i = 0; i<this.props.allResistors.length; i++){
+                
+                if(this.props.allResistors[i].nodeFrom.id===res.nodeFrom.id && this.props.allResistors[i].nodeTo.id===res.nodeTo.id){
+                    swal("","Ya tiene una resistencia entre los dos nodos seleccionados","error")
+                    return -1;
+                }
+            }
+        }
         let allResistors = [...this.props.allResistors]
         allResistors.splice(this.props.id, 1, res);
         this.props.onChange(allResistors);
@@ -39,6 +49,15 @@ class ResistorInput extends React.Component {
         else if(res.nodeFrom.id===1 && res.nodeTo.id ===2 || res.nodeFrom.id===2 && res.nodeTo.id ===1){
             swal("","La bateria esta entre los nodos 1 y 2, porfavor ingrese la resistencia en otros nodos","error")
             return -1;
+        }
+        if(res.nodeFrom.id!== -1 && res.nodeTo.id!== -1){
+            console.log("YEI2")
+            for(let i = 0; i<this.props.allResistors.length; i++){
+                if(this.props.allResistors[i].nodeFrom.id===res.nodeFrom.id && this.props.allResistors[i].nodeTo.id===res.nodeTo.id){
+                    swal("","Ya tiene una resistencia entre los dos nodos seleccionados","error")
+                    return -1;
+                }
+            }
         }
         let allResistors = [...this.props.allResistors]
         allResistors.splice(this.props.id, 1, res);
@@ -58,7 +77,6 @@ class ResistorInput extends React.Component {
 
 
     render() {
-        console.log(this.props);
         return (
             <div className="resistorStyle">
                 <select className="selectR" value={this.props.resistor.nodeFrom.id} onChange={this.updateFrom}>

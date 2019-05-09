@@ -122,6 +122,19 @@ class Form extends React.Component {
     })
   }
 
+  visitar(Nodo, visitados){
+    if (visitados.indexOf(Nodo) == -1){
+      visitados.push(Nodo);
+      for (let i = 0; i < Nodo.resistors.length; i++){
+        if (Nodo.resistors[i].nodeFrom.id == Nodo.id){
+          this.visitar(Nodo.resistors[i].nodeTo, visitados);
+        } else if (Nodo.resistors[i].nodeTo.id == Nodo.id){
+          this.visitar(Nodo.resistors[i].nodeFrom, visitados);
+        }
+      }
+    }
+  }
+
   nodeEquations(){
     
     let fakeResistors = [...this.state.resistors]
@@ -148,6 +161,20 @@ class Form extends React.Component {
           swal("","Resistencias conectadas incorrectamente","error");
           return -1;
         }
+      }
+    }
+
+    let visitados = [];
+    
+    this.visitar(fakeNodes[0], visitados);
+    if (visitados.length != fakeNodes.length){
+      swal("","Nodos conectados incorrectamente", "error");
+      return -1;
+    }
+    for (let i = 0; i < visitados.length; i++){
+      if (visitados.indexOf(fakeNodes[i]) == -1){
+        swal("", "Nodos conectados incorrectamente", "error");
+        return -1;
       }
     }
 
